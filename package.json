@@ -2,7 +2,7 @@
   "name": "syslog-highlight",
   "displayName": "Syslog Highlight",
   "description": "Highlight RFC 5424 and BSD syslog fields, with subtle severity-aware line backgrounds.",
-  "version": "0.3.6",
+  "version": "0.0.1",
   "publisher": "local-syslog",
   "license": "MIT",
   "engines": {

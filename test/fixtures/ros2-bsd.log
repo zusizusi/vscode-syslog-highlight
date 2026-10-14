@@ -1,0 +1,2 @@
+Oct 14 11:48:10 aaa bbb-manager[4716]: [bbb-manager-1] [INFO 1791946090.744912205] [bbb-manager] updateSummaryState(): "State transitioned : -> AAAA" at (/home/vvv/ws/src/aaaa/src/BBB_core.cpp:L711)
+Oct 14 11:48:15 aaa bbb-manager[4716]: [bbb-manager-1] [WARN 1791946090.744912205] [bbb-manager] updateSummaryState(): "State transitioned : -> AAAA" at (/home/vvv/ws/src/aaaa/src/BBB_core.cpp:L711)

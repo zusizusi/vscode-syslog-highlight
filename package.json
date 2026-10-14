@@ -1,0 +1,204 @@
+{
+  "name": "syslog-highlight",
+  "displayName": "Syslog Highlight",
+  "description": "Highlight RFC 5424 and BSD syslog fields, with subtle severity-aware line backgrounds.",
+  "version": "0.3.6",
+  "publisher": "local-syslog",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "syslog",
+    "log",
+    "rfc5424",
+    "rfc3164",
+    "severity"
+  ],
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onStartupFinished",
+    "onLanguage:syslog"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "scripts": {
+    "test": "node --test",
+    "package": "vsce package --allow-missing-repository"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "syslog",
+        "aliases": [
+          "Syslog",
+          "syslog"
+        ],
+        "extensions": [
+          ".log",
+          ".syslog"
+        ]
+      }
+    ],
+    "configuration": {
+      "title": "Syslog Highlight",
+      "properties": {
+        "syslogHighlight.enabled": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Enable highlighting of recognized syslog lines in .log/.syslog files and Syslog language documents."
+        },
+        "syslogHighlight.lineHighlight": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Tint warning lines with a translucent amber background and error or higher lines with a more pronounced red background. Use the ROS 2 message level when present, otherwise the original PRI severity. PRI text uses the default editor foreground in both RFC 5424 and BSD formats."
+        }
+      }
+    },
+    "colors": [
+      {
+        "id": "syslogHighlight.warningBackground",
+        "description": "Translucent yellow-amber background for warning lines.",
+        "defaults": {
+          "dark": "#FACC1533",
+          "light": "#FACC1538",
+          "highContrast": "#FACC1540",
+          "highContrastLight": "#FACC1540"
+        }
+      },
+      {
+        "id": "syslogHighlight.errorBackground",
+        "description": "Translucent red background for error, critical, alert, and emergency lines.",
+        "defaults": {
+          "dark": "#EF444440",
+          "light": "#DC262628",
+          "highContrast": "#EF44444D",
+          "highContrastLight": "#DC262640"
+        }
+      },
+      {
+        "id": "syslogHighlight.critical",
+        "description": "Syslog severity 2: Critical.",
+        "defaults": {
+          "dark": "#F87171",
+          "light": "#C62828",
+          "highContrast": "#F87171",
+          "highContrastLight": "#C62828"
+        }
+      },
+      {
+        "id": "syslogHighlight.error",
+        "description": "Syslog severity 3: Error.",
+        "defaults": {
+          "dark": "#FB923C",
+          "light": "#AD4100",
+          "highContrast": "#FB923C",
+          "highContrastLight": "#AD4100"
+        }
+      },
+      {
+        "id": "syslogHighlight.warning",
+        "description": "Syslog severity 4: Warning.",
+        "defaults": {
+          "dark": "#FACC15",
+          "light": "#826300",
+          "highContrast": "#FACC15",
+          "highContrastLight": "#826300"
+        }
+      },
+      {
+        "id": "syslogHighlight.debug",
+        "description": "Syslog severity 7: Debug. Uses a subdued neutral text color by default.",
+        "defaults": {
+          "dark": "#B0B0B0",
+          "light": "#606060",
+          "highContrast": "#CCCCCC",
+          "highContrastLight": "#5A5A5A"
+        }
+      },
+      {
+        "id": "syslogHighlight.version",
+        "description": "Syslog protocol version.",
+        "defaults": {
+          "dark": "#A1A1AA",
+          "light": "#61616B",
+          "highContrast": "#C4C4CE",
+          "highContrastLight": "#50505A"
+        }
+      },
+      {
+        "id": "syslogHighlight.timestamp",
+        "description": "Syslog timestamp.",
+        "defaults": {
+          "dark": "#D2B48C",
+          "light": "#795E26",
+          "highContrast": "#D2B48C",
+          "highContrastLight": "#795E26"
+        }
+      },
+      {
+        "id": "syslogHighlight.hostname",
+        "description": "Syslog hostname.",
+        "defaults": {
+          "dark": "#67E8F9",
+          "light": "#006B7A",
+          "highContrast": "#67E8F9",
+          "highContrastLight": "#006B7A"
+        }
+      },
+      {
+        "id": "syslogHighlight.appName",
+        "description": "Syslog application name or BSD tag.",
+        "defaults": {
+          "dark": "#C4B5FD",
+          "light": "#6B36A8",
+          "highContrast": "#C4B5FD",
+          "highContrastLight": "#6B36A8"
+        }
+      },
+      {
+        "id": "syslogHighlight.procId",
+        "description": "Syslog process ID.",
+        "defaults": {
+          "dark": "#93C5FD",
+          "light": "#145DB0",
+          "highContrast": "#93C5FD",
+          "highContrastLight": "#145DB0"
+        }
+      },
+      {
+        "id": "syslogHighlight.msgId",
+        "description": "Syslog message ID.",
+        "defaults": {
+          "dark": "#F9A8D4",
+          "light": "#A31565",
+          "highContrast": "#F9A8D4",
+          "highContrastLight": "#A31565"
+        }
+      },
+      {
+        "id": "syslogHighlight.structuredData",
+        "description": "Syslog structured data.",
+        "defaults": {
+          "dark": "#86EFAC",
+          "light": "#237A35",
+          "highContrast": "#86EFAC",
+          "highContrastLight": "#237A35"
+        }
+      }
+    ]
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^4.0.0"
+  }
+}

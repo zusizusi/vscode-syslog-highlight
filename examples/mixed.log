@@ -1,0 +1,35 @@
+<160>1 2026-10-15T09:00:00+09:00 gateway core 100 E000 - Emergency: service unavailable
+<161>1 2026-10-15T09:00:01+09:00 gateway core 100 E001 - Alert: immediate action required
+<162>1 2026-10-15T09:00:02+09:00 gateway core 100 E002 - Critical: storage failure
+<163>1 2026-10-15T09:00:03+09:00 gateway core 100 E003 - Error: request failed
+<164>1 2026-10-15T09:00:04+09:00 gateway core 100 E004 - Warning: disk space low
+<165>1 2026-10-15T09:00:05+09:00 gateway core 100 E005 - Notice: configuration reloaded
+<166>1 2026-10-15T09:00:06+09:00 gateway core 100 E006 - Informational: service ready
+<167>1 2026-10-15T09:00:07+09:00 gateway core 100 E007 - Debug: request trace
+
+<34>1 2026-10-15T09:01:00.123+09:00 auth.example.net sshd 1234 AUTH [auth@32473 user="operator" result="denied"][trace@32473 id="abc"] Authentication failed
+<165>1 - router - - - - Timestamp and optional fields are unknown
+<166>1 2026-10-15T00:02:00Z host app 100 EVENT [meta@32473 value="escaped \] bracket and \"quote\" and \\ slash"] 構造化データの例
+
+<34>Oct 15 09:03:00 auth sshd[1234]: Authentication failed
+<13>Oct 15 09:03:01 workstation app: Notice from BSD syslog
+Oct  5 09:03:02 host kernel: PRIが省略されたBSD形式
+Oct 15 09:03:03 host sshd[4321]: Accepted publickey for operator
+
+<166>1 2026-10-15T09:04:00+09:00 robot ros2 200 ROS - [FATAL] [1792022640.000] [controller]: Motor controller unavailable
+<166>1 2026-10-15T09:04:01+09:00 robot ros2 200 ROS - [ERROR] [1792022641.000] [controller]: Command failed
+<166>1 2026-10-15T09:04:02+09:00 robot ros2 200 ROS - [WARN] [1792022642.000] [controller]: Battery low
+<166>1 2026-10-15T09:04:03+09:00 robot ros2 200 ROS - [INFO] [1792022643.000] [controller]: Ready
+<166>1 2026-10-15T09:04:04+09:00 robot ros2 200 ROS - [DEBUG] [1792022644.000] [controller]: Tick
+<166>1 2026-10-15T09:04:05+09:00 robot ros2 200 ROS [meta note="[ERROR\]"] ordinary text; the SD marker does not trigger a red background
+<166>1 2026-10-15T09:04:06+09:00 robot ros2 200 ROS - [controller-1] [ERROR] [1792022646.000] [controller]: Launch process failed
+<166>Oct 15 09:04:07 robot ros2[200]: [WARN] [1792022647.000] [controller]: Battery low
+<166>Oct 15 09:04:08 robot ros2[200]: [INFO] [1792022648.000] [controller]: The message mentions ERROR but keeps the INFO color
+
+Oct 14 11:48:10 aaa bbb-manager[4716]: [bbb-manager-1] [INFO 1791946090.744912205] [bbb-manager] updateSummaryState(): "State transitioned : -> AAAA" at (/home/vvv/ws/src/aaaa/src/BBB_core.cpp:L7)
+Oct 14 11:48:15 aaa bbb-manager[4716]: [bbb-manager-1] [WARN 1791946090.744912205] [bbb-manager] updateSummaryState(): "State transitioned : -> AAAA" at (/home/vvv/ws/src/aaaa/src/BBB_core.cpp:L7)
+Oct 14 11:48:20 aaa bbb-manager[4716]: [bbb-manager-1] [ERROR 1791946100.744912205] [bbb-manager] Command failed; subtle red line background
+Oct 14 11:48:25 aaa bbb-manager[4716]: [bbb-manager-1] [FATAL 1791946105.744912205] [bbb-manager] Controller unavailable; subtle red line background
+
+This is an ordinary line and should not be highlighted.
+2026-10-15 09:00:00 INFO This is not a supported syslog record.

@@ -39,10 +39,12 @@ jobs:
           const { name, version } = require('./package.json');
           const lock = require('./package-lock.json');
           if (process.env.TAG_NAME !== `v${version}`) {
-            throw new Error(`Tag ${process.env.TAG_NAME} must match package version v${version}`);
+            console.error(`::error::Tag ${process.env.TAG_NAME} does not match package.json version ${version}. Push the tag v${version}.`);
+            process.exit(1);
           }
           if (lock.version !== version || lock.packages[''].version !== version) {
-            throw new Error('package-lock.json version must match package.json');
+            console.error(`::error::Update package-lock.json to version ${version} before creating the release tag.`);
+            process.exit(1);
           }
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `vsix=${name}-${version}.vsix\nversion=${version}\n`);
           NODE

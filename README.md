@@ -130,12 +130,15 @@ npm run package
 [リリース用ワークフロー](.github/workflows/release.yml)は、`v`で始まるタグのpushで実行されます。
 タグと`package.json`・`package-lock.json`のバージョンを確認し、`npm ci` → テスト → VSIX作成 → GitHub Releaseへの添付を自動で行います。追加のシークレットは不要です。
 
-ワークフローと変更をコミットしてGitHubにpushした後、バージョンと一致するタグをpushしてください。現在の`0.3.6`を公開する例です。
+ワークフローと変更をコミットしてGitHubにpushした後、`package.json`のバージョンと一致するタグをpushしてください。次のコマンドは現在のバージョンを読み取ってタグを作成します。
 
 ```sh
-git tag v0.3.6
-git push origin v0.3.6
+release_version=$(node -p "require('./package.json').version")
+git tag "v${release_version}"
+git push origin "v${release_version}"
 ```
+
+タグ・両方のJSONのバージョンは一致する必要があります。`0.0.1`ならタグは`v0.0.1`です。タグは作成時のコミットを指すため、バージョンを修正した後に古いActionsを再実行しても、その変更は反映されません。
 
 次のバージョンを公開するときは、変更をコミットした状態で次を実行できます。
 

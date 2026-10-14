@@ -1,0 +1,75 @@
+name: Release VSIX
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out tagged source
+        uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Validate release version
+        id: package
+        env:
+          TAG_NAME: ${{ github.ref_name }}
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const { name, version } = require('./package.json');
+          const lock = require('./package-lock.json');
+          if (process.env.TAG_NAME !== `v${version}`) {
+            throw new Error(`Tag ${process.env.TAG_NAME} must match package version v${version}`);
+          }
+          if (lock.version !== version || lock.packages[''].version !== version) {
+            throw new Error('package-lock.json version must match package.json');
+          }
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `vsix=${name}-${version}.vsix\nversion=${version}\n`);
+          NODE
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build VSIX
+        env:
+          VSIX_PATH: ${{ steps.package.outputs.vsix }}
+          CONTENT_URL: ${{ github.server_url }}/${{ github.repository }}/blob/${{ github.ref_name }}/
+        run: npm run package:release -- --out "$VSIX_PATH" --baseContentUrl "$CONTENT_URL"
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG_NAME: ${{ github.ref_name }}
+          VERSION: ${{ steps.package.outputs.version }}
+          VSIX_PATH: ${{ steps.package.outputs.vsix }}
+        shell: bash
+        run: |
+          flags=(--verify-tag --title "$TAG_NAME" --generate-notes)
+          if [[ "$VERSION" == *-* ]]; then
+            flags+=(--prerelease)
+          fi
+          gh release create "$TAG_NAME" "$VSIX_PATH" "${flags[@]}"

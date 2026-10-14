@@ -9,8 +9,8 @@ WARN行にはアンバー、ERROR以上の行には赤の薄い背景を付け�
 
 VS Code 1.85以上に対応しています。
 
-1. コマンドパレットで **Extensions: Install from VSIX...** を実行します。
-2. `syslog-highlight-*.vsix`を選択します。VSIXを作成する場合は[開発](#開発)を参照してください。
+1. GitHubの **Releases** から`syslog-highlight-*.vsix`をダウンロードします。自分で作成する場合は[開発](#開発)を参照してください。
+2. コマンドパレットで **Extensions: Install from VSIX...** を実行し、ダウンロードしたVSIXを選択します。
 3. `.log`または`.syslog`ファイルを開きます。
 
 [サンプルログ](examples/mixed.log)で両形式・各レベルの表示を確認できます。複数の形式が混在していても、行ごとに判定します。
@@ -121,8 +121,30 @@ npm run package
 
 このフォルダーをVS Codeで開き、`F5`を押すと、Extension Development Hostでサンプルログが開きます。
 `npm run package`でインストール用VSIXを作成できます。`vsce`は開発用の依存で、依存パッケージとlockファイルはVSIXに含めません。
+ローカル用VSIXではREADMEの相対リンクを保持し、Release用VSIXではタグに対応するGitHubのURLへ変換します。
 
 `local-syslog`はローカルパッケージ用のpublisher名です。Marketplaceに公開する場合は、登録したpublisher名に変更してください。
+
+## GitHub Release
+
+[リリース用ワークフロー](.github/workflows/release.yml)は、`v`で始まるタグのpushで実行されます。
+タグと`package.json`・`package-lock.json`のバージョンを確認し、`npm ci` → テスト → VSIX作成 → GitHub Releaseへの添付を自動で行います。追加のシークレットは不要です。
+
+ワークフローと変更をコミットしてGitHubにpushした後、バージョンと一致するタグをpushしてください。現在の`0.3.6`を公開する例です。
+
+```sh
+git tag v0.3.6
+git push origin v0.3.6
+```
+
+次のバージョンを公開するときは、変更をコミットした状態で次を実行できます。
+
+```sh
+npm version patch
+git push origin HEAD --follow-tags
+```
+
+`npm version patch`は両方のJSONのバージョンを更新し、コミットとタグを作成します。リリースノートは自動生成され、`v0.4.0-beta.1`などはプレリリースとして公開されます。
 
 ## 対応範囲
 

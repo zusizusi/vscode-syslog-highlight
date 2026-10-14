@@ -32,7 +32,8 @@
   },
   "scripts": {
     "test": "node --test",
-    "package": "vsce package --allow-missing-repository"
+    "package": "vsce package --allow-missing-repository --no-rewrite-relative-links",
+    "package:release": "vsce package --allow-missing-repository"
   },
   "contributes": {
     "languages": [
